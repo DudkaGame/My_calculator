@@ -15,7 +15,14 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+private slots:
+    void on_Calculate_button_clicked();
+
 private:
     Ui::MainWindow *ui;
+
+//private: int mode;
+
+
 };
 #endif // MAINWINDOW_H
