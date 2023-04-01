@@ -17,10 +17,10 @@
    <widget class="QPushButton" name="Calculate_button">
     <property name="geometry">
      <rect>
-      <x>150</x>
-      <y>320</y>
-      <width>80</width>
-      <height>25</height>
+      <x>160</x>
+      <y>140</y>
+      <width>111</width>
+      <height>41</height>
      </rect>
     </property>
     <property name="text">
@@ -56,6 +56,9 @@
       <height>51</height>
      </rect>
     </property>
+    <property name="readOnly">
+     <bool>true</bool>
+    </property>
    </widget>
    <widget class="QLineEdit" name="directionAngle">
     <property name="geometry">
@@ -75,6 +78,42 @@
       <width>113</width>
       <height>24</height>
      </rect>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="scale">
+    <property name="geometry">
+     <rect>
+      <x>290</x>
+      <y>150</y>
+      <width>113</width>
+      <height>24</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>110</y>
+      <width>55</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Angle</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>420</x>
+      <y>100</y>
+      <width>91</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Increment</string>
     </property>
    </widget>
   </widget>
