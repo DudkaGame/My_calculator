@@ -21,26 +21,25 @@ MainWindow::~MainWindow()
 int scaleFactor, quarter = 0;
 bool mode = 1;
 bool error = 0;
+double x_1, y_1, x_2, y_2, increment, scale, directionAngle;
+QString strX, strY, strX2, strY2, strDirectionAngle, strIncrement, strScale = "";
 
 void MainWindow::on_Calculate_button_clicked()
 {
-  QString strX, strY, strDirectionAngle, strIncrement, strScale = "";
-  double x_2, y_2 = 0;
-
   strX = ui->x_1->text();
-  double x_1 = strX.toDouble();
+  x_1 = strX.toDouble();
 
   strY = ui->y_1->text();
-  double y_1 = strY.toDouble();
+  y_1 = strY.toDouble();
 
   strDirectionAngle = ui->directionAngle->text();
-  double directionAngle = strDirectionAngle.toDouble();
+  directionAngle = strDirectionAngle.toDouble();
 
   strIncrement = ui->increment->text();
-  double increment = strIncrement.toDouble();
+  increment = strIncrement.toDouble();
 
   strScale = ui->scale->text();
-  double scale = strScale.toDouble();
+  scale = strScale.toDouble();
 
   if (error)
   {
@@ -78,31 +77,34 @@ void MainWindow::on_Calculate_button_clicked()
   }
   else
   {
-    if (directionAngle > 0 and directionAngle <= 90)
+    strX2 = ui->x2->text();
+    x_2 = strX2.toDouble();
+
+    strY2 = ui->y2->text();
+    y_2 = strY2.toDouble();
+
+    double side1 = abs(x_2 - x_1);
+    double side2 = abs(y_2 - y_1);
+    increment = sqrt(side1 * side1 + side2 * side2);
+
+    if (x_1 - x_2 <= 0 and y_1 - y_2 <= 0)
     {
-      x_2 = ((cos(directionAngle * M_PI / 180) * (increment / scale)) + x_1);
-      y_2 = ((sin(directionAngle * M_PI / 180) * (increment / scale)) + y_1);
+      directionAngle = ((acos(side1 / increment) * 180) / M_PI);
     }
-    if (directionAngle > 90 and directionAngle <= 180)
+    if (x_1 - x_2 >= 0 and y_1 - y_2 <= 0)
     {
-      directionAngle = fabs(90 - directionAngle);
-      x_2 = (x_1 - (sin(directionAngle * M_PI / 180) * (increment / scale)));
-      y_2 = ((cos(directionAngle * M_PI / 180) * (increment / scale)) + y_1);
+      directionAngle = ((asin(side1 / increment) * 180) / M_PI) + 90;
     }
-    if (directionAngle > 180 and directionAngle <= 270)
+    if (x_1 - x_2 >= 0 and y_1 - y_2 >= 0)
     {
-      directionAngle = fabs(180 - directionAngle);
-      x_2 = (x_1 - (cos(directionAngle * M_PI / 180) * (increment / scale)));
-      y_2 = (y_1 - (sin(directionAngle * M_PI / 180) * (increment / scale)));
+      directionAngle = ((acos(side1 / increment) * 180) / M_PI) + 180;
     }
-    if (directionAngle > 270 and directionAngle <= 360)
+    if (x_1 - x_2 <= 0 and y_1 - y_2 >= 0)
     {
-      directionAngle = fabs(270 - directionAngle);
-      x_2 = ((cos(directionAngle * M_PI / 180) * (increment / scale)) + x_1);
-      y_2 = (y_1 - (sin(directionAngle * M_PI / 180) * (increment / scale)));
+      directionAngle = ((asin(side1 / increment) * 180) / M_PI) + 270;
     }
 
-    ui->resultLabel->setText(QString("Дирекционный угол: %1 Дирекционный угол: %2").arg(directionAngle).arg(increment));
+    ui->resultLabel->setText(QString("Дирекционный угол: %1 Инкремент: %2").arg(directionAngle).arg(increment));
   }
 }
 
@@ -110,9 +112,19 @@ void MainWindow::on_Clear_button_clicked()
 {
   ui->x_1->clear();
   ui->y_1->clear();
+  ui->x2->clear();
+  ui->y2->clear();
   ui->directionAngle->clear();
   ui->scale->clear();
   ui->resultLabel->clear();
+
+  x_1 = 0;
+  y_1 = 0;
+  x_2 = 0;
+  y_2 = 0;
+  increment = 0;
+  directionAngle = 0;
+  scale = 0;
 }
 
 void MainWindow::on_directTask_clicked()
